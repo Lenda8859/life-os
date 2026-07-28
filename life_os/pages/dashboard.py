@@ -1,48 +1,14 @@
 """Стартовая страница Life OS."""
 
 from datetime import date
-from pathlib import Path
 
 import streamlit as st
 
 from life_os.config import APP_DESCRIPTION, APP_NAME, APP_SUBTITLE
 
-STYLES_PATH = Path(__file__).resolve().parents[1] / "assets" / "styles.css"
-
-
-def load_styles() -> None:
-    """Подключить локальные стили стартовой страницы."""
-    try:
-        styles = STYLES_PATH.read_text(encoding="utf-8")
-    except OSError:
-        return
-    st.markdown(f"<style>{styles}</style>", unsafe_allow_html=True)
-
-
-def render_sidebar() -> None:
-    """Показать навигацию-заглушку первой итерации."""
-    with st.sidebar:
-        st.markdown('<p class="brand">life<span>OS</span></p>', unsafe_allow_html=True)
-        st.caption(APP_SUBTITLE)
-        st.markdown("---")
-        st.markdown("●  Главная")
-        st.markdown("○  Жизненные сферы")
-        st.markdown("○  Цели")
-        st.markdown("○  Задачи")
-        st.markdown("○  Привычки")
-        st.markdown("○  Финансы")
-        st.markdown("○  Обучение")
-        st.markdown("○  Здоровье")
-        st.markdown("○  Дневник")
-        st.markdown("○  Итоги недели")
-        st.markdown('<div class="sidebar-note">Первая итерация</div>', unsafe_allow_html=True)
-
 
 def render_dashboard() -> None:
     """Отобразить минимальную главную страницу без подключения базы данных."""
-    load_styles()
-    render_sidebar()
-
     today = date.today().strftime("%d.%m.%Y")
     st.markdown(
         f"""
